@@ -1,8 +1,13 @@
 module.exports = {
-    getUsers (req,res){
-        res.send({users:'des users'});
+    readAll (req,res){
+        res.send({users:'readAll'});
     },
-    getUser (req,res){
-        res.send({user:'un user avec l\'id ' + req.params.id});
+    read (req,res){
+        res.send({user:'read' + req.params.id});
+    },
+    create (req,res){
+        console.log('create');
+        const body = req.body;
+        console.log(body);
     }
 }

@@ -4,8 +4,8 @@ const Schema = mongoose.Schema;
 
 
 const UserShema = new Schema({
-        nom: String,
-        age:Number,
+        name: String,
+        age: Number,
         movies:[{
             type:Schema.Types.ObjectId,
             ref: 'movie'
