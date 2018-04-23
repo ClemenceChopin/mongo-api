@@ -1,13 +1,28 @@
+const User = require("../modeles/users")
+
 module.exports = {
     readAll (req,res){
-        res.send({users:'readAll'});
+        User.find().then((users)=>{
+            res.send(users);
+        })
     },
     read (req,res){
-        res.send({user:'read' + req.params.id});
+        const {id} = req.params;
+        User.findById(id).then((user) =>{
+            res.send(user);
+        })
     },
     create (req,res){
-        console.log('create');
         const body = req.body;
-        console.log(body);
+        const user = new User({name:body.name});
+        user.save().then(()=> {
+                res.send({result:user})
+        }) 
+    },
+    delete (req,res){
+        const {id} = req.body;
+        User.findByIdAndRemove(id).then((user) =>{
+            res.send(user);
+        })
     }
 }
