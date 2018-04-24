@@ -1,4 +1,5 @@
 const User = require("../modeles/users")
+const Movie = require("../modeles/movies")
 
 module.exports = {
     readAll (req,res){
@@ -13,16 +14,32 @@ module.exports = {
         })
     },
     create (req,res){
-        const body = req.body;
-        const user = new User({name:body.name});
+        const name = req.body.name;
+        const age = req.body.age;
+        const user = new User({name,age});
+        const movie = new Movie({title:"la legende de seabiscuit", duration:97})
+        user.movies.push(movie); 
         user.save().then(()=> {
+            movie.save().then(()=>{
                 res.send({result:user})
+            })
         }) 
     },
     delete (req,res){
         const {id} = req.body;
         User.findByIdAndRemove(id).then((user) =>{
             res.send(user);
+        })
+    },
+    oldest(req,res){
+        console.log('--');
+        User.find().sort({'age':-1}).limit(1).then((users) =>{
+            res.send(users);
+        })
+    },
+    youngest(req,res){
+        User.find().sort({'age':1}).limit(1).then((users) =>{
+            res.send(users);
         })
     }
 }

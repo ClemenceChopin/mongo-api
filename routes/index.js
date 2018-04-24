@@ -8,6 +8,8 @@ module.exports = (server) => {
     server.get('/user/:id', UserController.read);
     server.post('/user', UserController.create);
     server.delete('/user/', UserController.delete);
+    server.get('/oldest/user', UserController.oldest);
+    server.get('/youngest/user', UserController.youngest);
     // movies
     server.get('/movies', MovieController.readAll);
     server.get('/movie/:id', MovieController.read);

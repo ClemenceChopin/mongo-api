@@ -13,10 +13,11 @@ module.exports = {
         })
     },
     create (req,res){
-        const body = req.body;
+        const title = req.body.title;
+        const duration = req.body.duration;
         const movie = new Movie({
-            title:body.title,
-            duration:body.duration        
+            title,
+            duration      
         });
         movie.save().then(()=> {
                 res.send({result:movie})
