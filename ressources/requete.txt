@@ -1,0 +1,27 @@
+
+db.USER_COLLEC.aggregate([
+
+{$unwind: "$movies"},
+{
+	$lookup :
+	{
+	  from:"MOVIE_COLLEC",
+	  localField:"movies",
+	  foreignField:"_id",
+	  as:"MovieContent"
+	}
+},
+{	
+  	$unwind: "$MovieContent"
+},
+{ 
+  	$sort: {"MovieContent.duration":-1}
+},
+{	
+  	$limit: 1
+},
+{
+ 	$project: { "user name":"$name", "Movie":"$MovieContent.title", "time":"$MovieContent.duration "} 
+}   
+])
+

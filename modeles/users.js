@@ -23,6 +23,6 @@ UserShema.pre('remove',function (next) {
 });
 
 
-const userModel = mongoose.model('user', UserShema);
+const userModel = mongoose.model('user', UserShema,'USER_COLLEC');
 
 module.exports = userModel;

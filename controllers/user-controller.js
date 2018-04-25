@@ -41,5 +41,34 @@ module.exports = {
         User.find().sort({'age':1}).limit(1).then((users) =>{
             res.send(users);
         })
+    },
+    HasLongestMovie(req,res){
+        User.aggregate([
+
+            {$unwind: "$movies"},
+            {
+                $lookup :
+                {
+                  from:"MOVIE_COLLEC",
+                  localField:"movies",
+                  foreignField:"_id",
+                  as:"MovieContent"
+                }
+            },
+            {	
+                  $unwind: "$MovieContent"
+            },
+            { 
+                  $sort: {"MovieContent.duration":-1}
+            },
+            {	
+                  $limit: 1
+            },
+            {
+                 $project: { "user name":"$name", "Movie":"$MovieContent.title", "time":"$MovieContent.duration "} 
+            }   
+        ]).then((infos) =>{
+            res.send(infos);
+        })
     }
 }

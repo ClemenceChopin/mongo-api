@@ -10,6 +10,8 @@ module.exports = (server) => {
     server.delete('/user/', UserController.delete);
     server.get('/oldest/user', UserController.oldest);
     server.get('/youngest/user', UserController.youngest);
+    server.get('/HasLongestMovie/user', UserController.HasLongestMovie);
+    
     // movies
     server.get('/movies', MovieController.readAll);
     server.get('/movie/:id', MovieController.read);
